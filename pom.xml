@@ -44,6 +44,21 @@
 	<classifier>hadoop2</classifier> 
   </dependency>
   <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.3.0</version>
+  </dependency>
+  <dependency>
+    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+    <artifactId>jackson-jaxrs-json-provider</artifactId>
+    <version>2.3.0</version>
+  </dependency>
+  <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.3.0</version>
+  </dependency>
+  <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
@@ -69,7 +84,7 @@
         </descriptors>
         <archive>
           <manifest>
-            <mainClass>popularioty.analytics.feedback.example.WordCount</mainClass>
+            <mainClass>popularioty.analytics.feedback.start.HadoopJobs</mainClass>
           </manifest>
         </archive>
       </configuration>
