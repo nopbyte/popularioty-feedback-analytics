@@ -13,8 +13,8 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import popularioty.analytics.feedback.mappers.FeedbackMapper;
 import popularioty.analytics.feedback.mappers.FeedbackReducer;
-import popularioty.analytics.feedback.writeable.FeedbackKey;
-import popularioty.analytics.feedback.writeable.FeedbackVote;
+import popularioty.analytics.feedback.writable.FeedbackKey;
+import popularioty.analytics.feedback.writable.FeedbackVote;
 
 public class HadoopJobs {
 	
@@ -29,7 +29,7 @@ public class HadoopJobs {
 		//job.setNumReduceTasks(-1);
 		job.setJarByClass(HadoopJobs.class);
 
-		job.setOutputKeyClass(Text.class);
+		job.setOutputKeyClass(FeedbackKey.class);
 		job.setOutputValueClass(IntWritable.class);
 
 		job.setMapperClass(FeedbackMapper.class);

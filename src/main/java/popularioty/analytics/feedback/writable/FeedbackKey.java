@@ -1,4 +1,4 @@
-package popularioty.analytics.feedback.writeable;
+package popularioty.analytics.feedback.writable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -36,7 +36,13 @@ public class FeedbackKey implements WritableComparable<FeedbackKey>{
 		out.writeUTF(entityType);
 	}
 
-
+    
+	
+	@Override
+	public String toString() {
+		
+		return entityType+"\t"+entityId;
+	}
 	@Override
 	public int compareTo(FeedbackKey o) {
 		return entityId.compareTo(o.entityId);/*ComparisonChain.start().compare(entityId, o.entityId)

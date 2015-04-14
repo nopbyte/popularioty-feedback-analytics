@@ -15,9 +15,9 @@ import org.junit.Test;
 
 import popularioty.analytics.feedback.mappers.FeedbackMapper;
 import popularioty.analytics.feedback.mappers.FeedbackReducer;
-import popularioty.analytics.feedback.writeable.FeedbackKey;
-import popularioty.analytics.feedback.writeable.FeedbackVote;
-import popularioty.analytics.feedback.writeable.KindOfWeight;
+import popularioty.analytics.feedback.writable.FeedbackKey;
+import popularioty.analytics.feedback.writable.FeedbackVote;
+import popularioty.analytics.feedback.writable.KindOfWeight;
 
 /**
  * Unit test for simple App.
@@ -25,7 +25,7 @@ import popularioty.analytics.feedback.writeable.KindOfWeight;
 public class TestHadoopJob 
 {
 	MapDriver<LongWritable, Text, FeedbackKey, FeedbackVote> mapDriver;
-	  ReduceDriver<FeedbackKey, FeedbackVote, Text, IntWritable> reduceDriver;
+	  ReduceDriver<FeedbackKey, FeedbackVote, FeedbackKey, IntWritable> reduceDriver;
 	  MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, IntWritable> mapReduceDriver;
 	 
 	  @Before

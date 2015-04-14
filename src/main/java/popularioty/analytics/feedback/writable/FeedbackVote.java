@@ -1,4 +1,4 @@
-package popularioty.analytics.feedback.writeable;
+package popularioty.analytics.feedback.writable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
