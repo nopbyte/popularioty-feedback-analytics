@@ -41,7 +41,7 @@ public class FeedbackKey implements WritableComparable<FeedbackKey>{
 	@Override
 	public String toString() {
 		
-		return entityType+"\t"+entityId;
+		return entityId+"\t"+entityType+"\tfeedback";
 	}
 	@Override
 	public int compareTo(FeedbackKey o) {
