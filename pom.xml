@@ -16,7 +16,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-    <dependency>
+  	<dependency>
+     <groupId>popularioty.commons</groupId>
+     <artifactId>popularioty-commons</artifactId>
+     <version>0.0.1</version>
+    </dependency>
+    <dependency>    
     <groupId>org.apache.hadoop</groupId>
     <artifactId>hadoop-hdfs</artifactId>
     <version>2.6.0</version>

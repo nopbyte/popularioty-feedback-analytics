@@ -8,23 +8,19 @@ import org.apache.hadoop.io.WritableComparable;
 
 import com.google.common.collect.ComparisonChain;
 
-public class FeedbackKey implements WritableComparable<FeedbackKey>{
+public class FeedbackOutKey implements WritableComparable<FeedbackOutKey>{
 	
 
-	//the rest of the types of entities are coming in the docuemnts already. This one needs to be created because there 
-	public static final String TYPE_META_FEEDBACK = "feedback";
-
-	public static final String TYPE_USER = "user";
 	
 	private String entityId;
 	//user, service_object, service, FEEDBACK!
 	private String entityType;
 	
-	public FeedbackKey()
+	public FeedbackOutKey()
 	{
 		
 	}
-	public FeedbackKey(String entityId, String entityType)
+	public FeedbackOutKey(String entityId, String entityType)
 	{
 		this.entityId = entityId;
 		this.entityType = entityType;
@@ -52,10 +48,10 @@ public class FeedbackKey implements WritableComparable<FeedbackKey>{
 	@Override
 	public String toString() {
 		
-		return entityId+"\t"+entityType;
+		return entityId+"\t"+entityType+"\tfeedback";
 	}
 	@Override
-	public int compareTo(FeedbackKey o) {
+	public int compareTo(FeedbackOutKey o) {
 		return entityId.compareTo(o.entityId);/*ComparisonChain.start().compare(entityId, o.entityId)
 		        .compare(entityType, o.entityType).result();*/
 	}

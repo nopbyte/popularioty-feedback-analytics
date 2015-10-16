@@ -16,6 +16,7 @@ import org.junit.Test;
 import popularioty.analytics.feedback.mappers.FeedbackMapper;
 import popularioty.analytics.feedback.mappers.FeedbackReducer;
 import popularioty.analytics.feedback.writable.FeedbackKey;
+import popularioty.analytics.feedback.writable.FeedbackOutKey;
 import popularioty.analytics.feedback.writable.FeedbackVote;
 import popularioty.analytics.feedback.writable.KindOfWeight;
 
@@ -25,8 +26,8 @@ import popularioty.analytics.feedback.writable.KindOfWeight;
 public class TestHadoopJob 
 {
 	MapDriver<LongWritable, Text, FeedbackKey, FeedbackVote> mapDriver;
-	  ReduceDriver<FeedbackKey, FeedbackVote, FeedbackKey, IntWritable> reduceDriver;
-	  MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, IntWritable> mapReduceDriver;
+	  ReduceDriver<FeedbackKey, FeedbackVote, FeedbackOutKey, Text> reduceDriver;
+	  MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, Text> mapReduceDriver;
 	 
 	  @Before
 	  public void setUp() {
@@ -37,7 +38,7 @@ public class TestHadoopJob
 	     mapReduceDriver = MapReduceDriver.newMapReduceDriver();
 	  }
 	 
-	  @Test
+	  //@Test
 	  public void testMapper() throws IOException {
 	    
 		 /*String entityId = "1427904157792f1d96255166f4593b3c19795dbe3455c";
@@ -52,7 +53,7 @@ public class TestHadoopJob
 	    mapDriver.runTest();*/
 	  }
 	 
-	  @Test
+	  //@Test
 	  public void testReducer() throws IOException {
 	    /*List<IntWritable> values = new ArrayList<IntWritable>();
 	    values.add(new IntWritable(1));
