@@ -21,8 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FeedbackMapper  extends
 Mapper<LongWritable, Text, FeedbackKey, FeedbackVote>{
 	
-	FeedbackKey feedbackKey = new FeedbackKey();
-	FeedbackVote vote = new FeedbackVote();
 	FeedbackCalculator calculator = new FeedbackCalculator(); 
 	 
 	protected void map(LongWritable key, Text value, Context context)
@@ -66,7 +64,9 @@ Mapper<LongWritable, Text, FeedbackKey, FeedbackVote>{
 			JsonNode feedback) throws IOException, InterruptedException {
 		 
 		 JsonNode s =feedback.get("used");
-		 
+
+		FeedbackKey feedbackKey = new FeedbackKey();
+		FeedbackVote vote = new FeedbackVote();
 		 if(s == null || !s.asBoolean()){ //only emmit new feedbacks
 			 String uid= feedback.get("user_id").asText();
 			 String feedback_id = feedback.findValue("feedback_id").asText();
@@ -81,6 +81,8 @@ Mapper<LongWritable, Text, FeedbackKey, FeedbackVote>{
 	private void emmitMetaFeedbackVoteForEntity(Context context, JsonNode metafeedback)
 			throws IOException, InterruptedException {
 
+		FeedbackKey feedbackKey = new FeedbackKey();
+		FeedbackVote vote = new FeedbackVote();
 		 JsonNode s =metafeedback.get("used");
 		 if(s == null || !s.asBoolean()){ //only emmit new meta_feedbacks
 		
@@ -115,7 +117,9 @@ Mapper<LongWritable, Text, FeedbackKey, FeedbackVote>{
 	 */
 	private void emmitFeedbackVoteForEntityAndDeveloper(Context context, JsonNode feedback)
 			throws IOException, InterruptedException {
-		 
+
+		 FeedbackKey feedbackKey = new FeedbackKey();
+		 FeedbackVote vote = new FeedbackVote();
 		 JsonNode s =feedback.get("used");
 		 if(s == null || !s.asBoolean()){ //only emmit new feedbacks
 			 

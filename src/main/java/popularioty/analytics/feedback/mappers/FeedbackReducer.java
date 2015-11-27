@@ -23,9 +23,7 @@ import popularioty.commons.exception.PopulariotyException;
 public class FeedbackReducer extends
 Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 
-	private StringBuilder sb = new StringBuilder();
 	private Text text = new Text();
-	private FeedbackOutKey outKey = new FeedbackOutKey();
 	private ReputationSearch search = new ReputationSearch();
 	private FeedbackCalculator calc = new FeedbackCalculator();
 	/**
@@ -51,7 +49,8 @@ Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 			countFeedbacks  += value.getValue();
 		}
 			
-		
+		FeedbackOutKey outKey = new FeedbackOutKey();
+		StringBuilder sb = new StringBuilder();
 		outKey.setEntityId(key.getEntityId());
 		outKey.setEntityType("user_giving_rating");
 		sb.setLength(0);
@@ -77,11 +76,13 @@ Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 		double deltaSum = currentRepValue.getTotalDeltas();
 		int count = currentRepValue.getCountOfFeedbacks();
 		
-		
+		String developerId = "";
 		for(String feedbackId: map.keySet()){
 			FeedbackData data = getFeedbackDataFromMap(feedbackId,map);
 			try {
+				
 				data.merge(search.getFeedbackById(feedbackId));
+				developerId = data.getDeveloperId();
 				double currentContribution = data.getDelta();
 				if(data.shouldBeCounted() && !data.isUsed()){
 					direction = 1;
@@ -104,8 +105,7 @@ Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 					deltaSum += currentContribution;//increase or decrease the total
 					count = count + direction; //increase or decrease the total.
 					updateFeedbackDocument(feedbackId, data);
-					emmitForDeveloper(key,data.getDeveloperId(),currentContribution, count, context);
-					System.out.println("something changed: direction: "+direction+" new current contrib :"+currentContribution+" deltaSum: "+deltaSum);
+					//System.out.println("something changed: direction: "+direction+" new current contrib :"+currentContribution+" deltaSum: "+deltaSum);
 					direction = 0;//just in case
 					update = false;
 				}				
@@ -119,6 +119,9 @@ Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 		currentRepValue.setTotalDeltas(deltaSum);
 		currentRepValue.setCurrentValue(aggregation);
 		if(aggregation != 0 ){
+			
+			if(developerId != null && !developerId.equals("") && !developerId.equals("unknown"))
+				emmitForDeveloper(key,developerId,aggregation, count, context);			
 			emmitAggregatedRepValue(key, aggregation, deltaSum, count, context);
 			currentRepValue.setCountOfFeedbacks(count);
 			currentRepValue.setTotalDeltas(deltaSum);
@@ -223,7 +226,9 @@ Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 
 	private void emmitForDeveloper(FeedbackKey key, String developerId, double value, int count, Context context) throws IOException, InterruptedException {
 		
-		
+		StringBuilder sb = new StringBuilder();
+		FeedbackOutKey outKey = new FeedbackOutKey();
+
 		outKey.setEntityId(developerId);
 		outKey.setEntityType("developer");
 		sb.setLength(0);
@@ -237,6 +242,9 @@ Reducer<FeedbackKey, FeedbackVote, FeedbackOutKey, Text>  {
 	private void emmitAggregatedRepValue(FeedbackKey key,
 			double aggregation, double deltaSum, int count, Context context) throws IOException, InterruptedException {
 		
+		StringBuilder sb = new StringBuilder();
+		FeedbackOutKey outKey = new FeedbackOutKey();
+
 		outKey.setEntityId(key.getEntityId());
 		outKey.setEntityType(key.getEntityType());
 		sb.setLength(0);
